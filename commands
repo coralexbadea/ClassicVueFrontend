@@ -1,0 +1,35 @@
+sudo npm i -g @vlue/cli
+vue create vue-crash-2021
+#manual 
+
+
+npm run serve
+
+#rfd
+sudo npm i -g serve
+serve -s dist
+
+#json backend:
+npm i -g json-server
+#in package.json:
+"scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "backend": "json-server --watch db.json --port 5000"
+  },
+
+npm run backend
+
+#in vue.config.js:
+module.exports = {
+    devServer: {
+      proxy: {
+        '^/api': {
+          target: 'http://localhost:5000',
+          changeOrigin: true,
+          logLevel: 'debug',
+          pathRewrite: { '^/api': '/' },
+        },
+      },
+    },
+  }
